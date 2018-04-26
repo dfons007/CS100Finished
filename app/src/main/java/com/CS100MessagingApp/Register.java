@@ -49,49 +49,60 @@ public class Register extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Gets Username from text field in registration page
                 user = username.getText().toString();
+                //Gets password from text field in registration page
                 pass = password.getText().toString();
-
+                //Checks if username is empty
                 if(user.equals("")){
                     username.setError("can't be blank");
                 }
+                //Checks if pw is empty
                 else if(pass.equals("")){
                     password.setError("can't be blank");
                 }
+                //Checks if username fits criteria
                 else if(!user.matches("[A-Za-z0-9]+")){
-                    username.setError("only alphabet or number allowed");
+                    username.setError("Only the Alphabet or numbers allowed");
                 }
+                //Checks if username and pw is under 5 letters
                 else if(user.length()<5){
-                    username.setError("at least 5 characters long");
+                    username.setError("Needs to be at least 5 characters long");
                 }
                 else if(pass.length()<5){
-                    password.setError("at least 5 characters long");
+                    password.setError("Needs to be at least 5 characters long");
                 }
                 else {
+                    //creates a progressdialog to denote that process is loading
                     final ProgressDialog pd = new ProgressDialog(Register.this);
                     pd.setMessage("Loading...");
                     pd.show();
-
+                    // URL to firebase user data json
                     String url = "https://messaging-app-cs100.firebaseio.com/users.json";
-
+                    // Requests to firebase user data json
                     StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
                         @Override
                         public void onResponse(String s) {
+                            //Referencing user area of database
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users");
-
+                            // Checks if User database is null
                             if(s.equals("null")) {
+                                //Creates a node USER with bio and pw
                                 reference.child(user).child("password").setValue(pass);
+                                reference.child(user).child("bio").setValue("This is a bio.");
                                 Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
                             }
                             else {
                                 try {
                                     JSONObject obj = new JSONObject(s);
-
+                                    // Checks if Database contains username
                                     if (!obj.has(user)) {
+                                        //Creates a node USER with bio and pw
                                         reference.child(user).child("password").setValue(pass);
-                                        Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
+                                        reference.child(user).child("bio").setValue("This is a bio.");
+                                        Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_LONG).show();
                                     } else {
-                                        Toast.makeText(Register.this, "username already exists", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(Register.this, "Username already exists", Toast.LENGTH_LONG).show();
                                     }
 
                                 } catch (JSONException e) {

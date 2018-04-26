@@ -33,8 +33,10 @@ public class Users extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Setting Layout ro activity_user
         setContentView(R.layout.activity_user);
 
+        //User List
         usersList = (ListView)findViewById(R.id.usersList);
         noUsersText = (TextView)findViewById(R.id.noUsersText);
 
