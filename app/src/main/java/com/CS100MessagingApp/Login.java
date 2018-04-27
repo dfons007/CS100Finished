@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
-    TextView registerUser;
+    TextView registerUser, LoginText;
     EditText username, password;
     Button loginButton;
     String user, pass;
@@ -32,10 +33,25 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        AlphaAnimation fadein = new AlphaAnimation(0.0f,1.0f);
+
         registerUser = (TextView)findViewById(R.id.register);
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         loginButton = (Button)findViewById(R.id.loginButton);
+        LoginText = (TextView)findViewById(R.id.LoginTop);
+
+        //Fade-in Animation
+        fadein.setDuration(1500);
+        fadein.setFillAfter(true);
+        registerUser.startAnimation(fadein);
+        username.startAnimation(fadein);
+        password.startAnimation(fadein);
+        loginButton.startAnimation(fadein);
+        LoginText.startAnimation(fadein);
+        //End Animation
+
+
 
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override

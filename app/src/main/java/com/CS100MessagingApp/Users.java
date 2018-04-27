@@ -92,12 +92,14 @@ public class Users extends AppCompatActivity {
         }
 
         if(totalUsers <=1){
+            //Checks to see if there are any users.
             noUsersText.setVisibility(View.VISIBLE);
             usersList.setVisibility(View.GONE);
         }
         else{
             noUsersText.setVisibility(View.GONE);
             usersList.setVisibility(View.VISIBLE);
+            //Setting Adapter for Custom List View Takes in AL an ArrayList of Strings
             UserAreaAdapter adapter = new UserAreaAdapter(this, al);
             usersList.setAdapter(adapter);
         }
