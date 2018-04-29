@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button_changepw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Password"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="344dp" />
+
+    <Button
+        android:id="@+id/button_logout"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        tools:layout_editor_absoluteX="212dp"
+        tools:layout_editor_absoluteY="344dp" />
+
+    <android.support.v4.widget.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="162dp"
+        android:layout_height="157dp"
+        android:src="@drawable/profile_default_img_"
+        app:border_width="2dp"
+        tools:layout_editor_absoluteX="111dp"
+        tools:layout_editor_absoluteY="112dp" />
+</android.support.constraint.ConstraintLayout>
