@@ -2,6 +2,7 @@ package com.CS100MessagingApp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +27,7 @@ import java.util.Iterator;
 
 public class Users extends AppCompatActivity {
     ListView usersList;
+    Button ChatTab, ProfileTab;
     TextView noUsersText;
     ArrayList<String> al = new ArrayList<>();
     int totalUsers = 0;
@@ -39,6 +42,9 @@ public class Users extends AppCompatActivity {
         //User List
         usersList = (ListView)findViewById(R.id.usersList);
         noUsersText = (TextView)findViewById(R.id.noUsersText);
+        //Button
+        ChatTab = (Button)findViewById(R.id.ChatTab);
+        ProfileTab = (Button)findViewById(R.id.ProfileTab);
 
         pd = new ProgressDialog(Users.this);
         pd.setMessage("Loading...");
@@ -68,6 +74,14 @@ public class Users extends AppCompatActivity {
                 startActivity(new Intent(Users.this, Chat.class));
             }
         });
+
+        ProfileTab.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(Users.this,UserProfilePage.class));
+            }
+        } );
     }
 
     public void doOnSuccess(String s){

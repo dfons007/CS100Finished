@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#000000</color>
@@ -8,10 +7,5 @@
     <color name="graylight">#ffffff</color>
     <color name="starblue">#09c6df</color>
     <color name="endblue">#0bcce6</color>
-=======
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorAccent">#000080</color>
 
->>>>>>> a585dae075c3f6eea3d4d9e865cd4abcb5135874
 </resources>
