@@ -22,7 +22,7 @@
                 android:layout_height="80dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="50dp"
-                android:src="@drawable/profile_pic_circle"></ImageView>
+                android:src="@drawable/profile_pic_circle"/>
 
             <TextView
                 android:id="@+id/ProfilePicName"

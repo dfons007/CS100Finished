@@ -2,12 +2,10 @@ package com.CS100MessagingApp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Button;
@@ -19,6 +17,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.UploadTask;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +31,7 @@ public class Users extends AppCompatActivity {
     ListView usersList;
     Button ChatTab, ProfileTab;
     TextView noUsersText;
+    StorageReference storage;
     ArrayList<String> al = new ArrayList<>();
     int totalUsers = 0;
     ProgressDialog pd;
@@ -38,7 +41,8 @@ public class Users extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Setting Layout ro activity_user
         setContentView(R.layout.activity_user);
-
+        //Connecting to Firebase Storage
+        storage = FirebaseStorage.getInstance().getReference();
         //User List
         usersList = (ListView)findViewById(R.id.usersList);
         noUsersText = (TextView)findViewById(R.id.noUsersText);
