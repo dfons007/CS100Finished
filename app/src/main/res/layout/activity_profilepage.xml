@@ -52,6 +52,18 @@
             android:text="Change Password" />
 
         <Button
+            android:id="@+id/button_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/button_changepw"
+            android:layout_marginBottom="42dp"
+            android:background="@drawable/buttonstyle"
+            android:text="Chat"
+            android:textColor="#fff"
+            android:textStyle="italic" />
+
+        <Button
             android:id="@+id/button_logout"
             android:layout_width="149dp"
             android:layout_height="wrap_content"

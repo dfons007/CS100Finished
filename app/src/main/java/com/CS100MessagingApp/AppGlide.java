@@ -23,6 +23,7 @@ public class AppGlide extends AppGlideModule {
                 new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
+                .placeholder(R.drawable.profile_pic_circle)
             );
     }
 

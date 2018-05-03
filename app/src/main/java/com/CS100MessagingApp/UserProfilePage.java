@@ -29,7 +29,7 @@ import java.io.ByteArrayOutputStream;
 
 public class UserProfilePage extends AppCompatActivity {
 
-    Button ChangePassword, logoutButton;
+    Button ChangePassword, logoutButton, chatButton;
     ImageView profilepicture;
     TextView profilename;
     String usersName = UserDetails.username;
@@ -54,6 +54,7 @@ public class UserProfilePage extends AppCompatActivity {
         profilepicture = (ImageView)findViewById(R.id.ProPic);
         profilename =(TextView)findViewById(R.id.ProfilePicName);
         profilename.setText(usersName);
+        chatButton =(Button)findViewById(R.id.button_chat);
 
         pd = new ProgressDialog(this);
 
@@ -67,7 +68,8 @@ public class UserProfilePage extends AppCompatActivity {
         fadein.setFillAfter(true);
         ChangePassword.startAnimation(fadein);
         logoutButton.startAnimation(fadein);
-        // Animation End
+        chatButton.startAnimation(fadein);
+        // Animation Endl
 
         ChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +94,14 @@ public class UserProfilePage extends AppCompatActivity {
                 startActivityForResult(intent,2);
             }
 
+        });
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Users.class);
+                startActivity(intent);
+            }
         });
     }
 
