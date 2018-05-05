@@ -28,7 +28,7 @@
         android:id="@+id/ChatTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chat"
+        android:text="Groups"
         android:gravity="center"
         android:textSize="25dp"/>
     <Button

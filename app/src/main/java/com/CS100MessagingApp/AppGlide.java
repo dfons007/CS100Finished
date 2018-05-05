@@ -21,9 +21,9 @@ public class AppGlide extends AppGlideModule {
         //Apply Components here
         builder.setDefaultRequestOptions(
                 new RequestOptions()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .placeholder(R.drawable.profile_pic_circle)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .placeholder(R.drawable.profile_pic_circle)
             );
     }
 
