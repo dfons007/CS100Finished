@@ -29,7 +29,7 @@ import java.util.Iterator;
 
 public class Users extends AppCompatActivity {
     ListView usersList;
-    Button ChatTab, ProfileTab;
+    Button ChatTab, ProfileTab, PlusButton;
     TextView noUsersText;
     StorageReference storage;
     ArrayList<String> al = new ArrayList<>();
@@ -49,6 +49,7 @@ public class Users extends AppCompatActivity {
         //Button
         ChatTab = (Button)findViewById(R.id.ChatTab);
         ProfileTab = (Button)findViewById(R.id.ProfileTab);
+        PlusButton = (Button)findViewById(R.id.PlusButton);
 
         pd = new ProgressDialog(Users.this);
         pd.setMessage("Loading...");
@@ -86,6 +87,15 @@ public class Users extends AppCompatActivity {
                 startActivity(new Intent(Users.this,UserProfilePage.class));
             }
         } );
+
+        PlusButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Users.this, GroupChat.class));
+            }
+        });
+
     }
 
     public void doOnSuccess(String s){

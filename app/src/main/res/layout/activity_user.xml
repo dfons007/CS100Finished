@@ -19,6 +19,14 @@
         android:text="No users found!"
         android:visibility="gone" />
 
+    <Button
+        android:id="@+id/PlusButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:textSize="40dp"
+        android:textColor="@color/colorPrimary"/>
+
     <ListView
         android:id="@+id/usersList"
         android:layout_width="match_parent"

@@ -52,7 +52,7 @@ public class GroupChat extends AppCompatActivity {
         }
 
         // Reference to GroupChat Message Data
-        groupRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages/"+UserDetails.CurrentGroupChat);
+       // groupRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages/"+UserDetails.CurrentGroupChat);
 
     }
 
