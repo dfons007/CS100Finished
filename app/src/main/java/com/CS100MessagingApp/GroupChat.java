@@ -35,20 +35,21 @@ public class GroupChat extends AppCompatActivity {
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollview = (ScrollView)findViewById(R.id.scrollView);
 
-        11 = (ListView) findViewById(R.id.listView);
+        l1 = (ListView)findViewById(R.id.listView);
 
         public void get(View v)
         {
-            Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null,null);
+            Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null);
             startManagingCursor(cursor);
 
-            String[] from = {ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,ContactsContract.CommonDataKinds.Phone.NUMBER,ContactsContract.CommonDataKinds.Phone._ID};
+            String[] from = {ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,ContactsContract.CommonDataKinds.Phone.NUMBER,
+            ContactsContract.CommonDataKinds.Phone._ID};
 
             int[] to = {android.R.id.text1,android.R.id.text2};
 
             SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this,android.R.layout.simple_list_item_2,cursor,from,to);
-            11.setAdapter(simpleCursorAdapter);
-            11.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            l1.setAdapter(simpleCursorAdapter);
+            l1.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         }
 
         // Reference to GroupChat Message Data

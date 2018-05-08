@@ -8,10 +8,29 @@
     <ListView
         class="android.support.v7.app.AlertController$RecycleListView"
         android:layout_width="match_parent"
-        android:layout_height="513dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="49dp">
+        android:layout_height="453dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4"
+        android:focusable="true">
 
     </ListView>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:backgroundTint="#cf0f0f"
+        android:onClick="get"
+        android:text="@string/load_contacts"
+        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
