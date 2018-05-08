@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GroupChat" />
         <activity android:name=".Register" />
         <activity android:name=".Users" />
         <activity android:name=".Chat" />
