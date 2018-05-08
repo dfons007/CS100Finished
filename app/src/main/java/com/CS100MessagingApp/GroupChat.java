@@ -31,7 +31,7 @@ public class GroupChat extends AppCompatActivity {
         scrollview = (ScrollView)findViewById(R.id.scrollView);
 
         // Reference to GroupChat Message Data
-        groupRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages/"+UserDetails.CurrentGroupChat);
+       // groupRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages/"+UserDetails.CurrentGroupChat);
 
     }
 
