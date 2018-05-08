@@ -10,26 +10,26 @@
         android:layout_width="match_parent"
         android:layout_height="453dp"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4"
-        android:focusable="true">
+        app:layout_constraintTop_toBottomOf="@+id/button4">
 
     </ListView>
 
     <Button
         android:id="@+id/button4"
         android:layout_width="136dp"
-        android:layout_height="wrap_content"
+        android:layout_height="49dp"
+        android:layout_marginTop="44dp"
         android:background="@color/colorPrimaryDark"
         android:backgroundTint="#cf0f0f"
         android:onClick="get"
         android:text="@string/load_contacts"
         app:layout_constraintBottom_toTopOf="@+id/_dynamic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
