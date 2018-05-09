@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Group 9 Best App</string>
     <string name="name_goes_here">Name Goes Here</string>
-    <string name="load_contacts">Load Contacts</string>
-    <string name="load_contacts">Load Contacts</string>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

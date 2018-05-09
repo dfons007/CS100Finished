@@ -26,6 +26,7 @@
         <activity android:name=".Chat" />
         <activity android:name=".UserProfilePage"/>
         <activity android:name=".ResetPassword" />
+        <activity android:name=".SelectUsers"/>
     </application>
 
 </manifest>

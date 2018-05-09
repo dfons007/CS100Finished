@@ -47,38 +47,7 @@ public class GroupChat extends AppCompatActivity {
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollview = (ScrollView)findViewById(R.id.scrollView);
 
-        ListView listView = (ListView) findViewById(R.id.listview);
 
-        final List<UserModel> users = new ArrayList<>();
-        users.add(new UserModel(false, "Do"));
-        users.add(new UserModel(false, "Re"));
-        users.add(new UserModel(false, "Me"));
-        users.add(new UserModel(false, "Fa"));
-        users.add(new UserModel(false, "So"));
-        users.add(new UserModel(false, "La"));
-        users.add(new UserModel(false, "Ti"));
-
-        final CustomAdapter adapter = new CustomAdapter(this, users);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-
-                UserModel model = users.get(i);
-
-                if(model.isSelected())
-                    model.setSelected(false);
-
-                else
-                    model.setSelected(true);
-
-                users.set(i, model);
-
-                // Update adapter below
-                adapter.updateRecords(users);
-            }
-        });
 
         // Reference to GroupChat Message Data
        // groupRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages/"+UserDetails.CurrentGroupChat);

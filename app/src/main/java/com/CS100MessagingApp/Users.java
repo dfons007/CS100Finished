@@ -92,7 +92,7 @@ public class Users extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Users.this, GroupChat.class));
+                startActivity(new Intent(Users.this, SelectUsers.class));
             }
         });
 
