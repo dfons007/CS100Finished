@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -27,7 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Users extends AppCompatActivity {
+public class GroupList extends AppCompatActivity {
     ListView usersList;
     Button ChatTab, ProfileTab, PlusButton;
     TextView noUsersText;
@@ -50,12 +51,13 @@ public class Users extends AppCompatActivity {
         ChatTab = (Button)findViewById(R.id.ChatTab);
         ProfileTab = (Button)findViewById(R.id.ProfileTab);
         PlusButton = (Button)findViewById(R.id.PlusButton);
+        ChatTab.setText("Chat");
 
-        pd = new ProgressDialog(Users.this);
+        pd = new ProgressDialog(GroupList.this);
         pd.setMessage("Loading...");
         pd.show();
 
-        String url = "https://messaging-app-cs100.firebaseio.com/users.json";
+        String url = "https://messaging-app-cs100.firebaseio.com/users/"+UserDetails.username+"/groups.json";
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
             @Override
@@ -69,14 +71,14 @@ public class Users extends AppCompatActivity {
             }
         });
 
-        RequestQueue rQueue = Volley.newRequestQueue(Users.this);
+        RequestQueue rQueue = Volley.newRequestQueue(GroupList.this);
         rQueue.add(request);
 
         usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                UserDetails.chatWith = al.get(position);
-                startActivity(new Intent(Users.this, Chat.class));
+                UserDetails.CurrentGroup = al.get(position);
+                startActivity(new Intent(GroupList.this, GroupChat.class));
             }
         });
 
@@ -84,7 +86,7 @@ public class Users extends AppCompatActivity {
         {
             @Override
             public void onClick(View v){
-                startActivity(new Intent(Users.this,UserProfilePage.class));
+                startActivity(new Intent(GroupList.this,UserProfilePage.class));
             }
         } );
 
@@ -92,13 +94,13 @@ public class Users extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Users.this, SelectUsers.class));
+                startActivity(new Intent(GroupList.this, SelectUsers.class));
             }
         });
         ChatTab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(Users.this,GroupList.class));
+                startActivity(new Intent(GroupList.this,Users.class));
             }
         });
 
@@ -113,19 +115,16 @@ public class Users extends AppCompatActivity {
 
             while(i.hasNext()){
                 key = i.next().toString();
-
-                if(!key.equals(UserDetails.username)) {
-                    al.add(key);
-                }
-
+                al.add(key);
                 totalUsers++;
             }
+            Log.i("Groupname:",key);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if(totalUsers <=1){
+        if(totalUsers < 1){
             //Checks to see if there are any users.
             noUsersText.setVisibility(View.VISIBLE);
             usersList.setVisibility(View.GONE);

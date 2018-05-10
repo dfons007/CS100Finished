@@ -27,6 +27,7 @@
         <activity android:name=".UserProfilePage"/>
         <activity android:name=".ResetPassword" />
         <activity android:name=".SelectUsers"/>
+        <activity android:name=".GroupList"/>
     </application>
 
 </manifest>

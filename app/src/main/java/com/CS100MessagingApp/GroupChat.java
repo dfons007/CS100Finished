@@ -36,11 +36,6 @@ public class GroupChat extends AppCompatActivity {
     ScrollView scrollview;
     DatabaseReference groupRef;
 
-    /*
-     Maybe this line isn't needed? I can't tell. There is an error with it and it doesn't seem to
-     affect anything else without it.
-     ListView 11;
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +47,7 @@ public class GroupChat extends AppCompatActivity {
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollview = (ScrollView)findViewById(R.id.scrollView);
 
-        groupRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages/" + UserDetails.CurrentGroup + "/msgs");
+        groupRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages/" + UserDetails.CurrentGroup);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +76,7 @@ public class GroupChat extends AppCompatActivity {
                     addMessageBox("You:\n" + message, 1);
                 }
                 else{
-                    addMessageBox(UserDetails.CurrentGroup + ":\n" + message, 2);
+                    addMessageBox(userName + ":\n" + message, 2);
                 }
             }
 

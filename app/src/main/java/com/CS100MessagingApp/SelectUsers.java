@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,12 +36,11 @@ import java.util.List;
 public class SelectUsers extends AppCompatActivity{
     ListView groupList;
     ArrayList<MyUser> al = new ArrayList<>();
-    List<String> namestopass;
     ArrayAdapter<MyUser> listAdapter;
     Button box;
     int totalUsers = 0;
     ProgressDialog pd;
-
+    EditText groupstring;
     String groupID = "";
 
     @Override
@@ -49,7 +49,8 @@ public class SelectUsers extends AppCompatActivity{
         setContentView(R.layout.activity_select_users_group);
         // Group ID List
         groupList = (ListView)findViewById(R.id.groupList);
-        box = (Button)findViewById(R.id.button3);
+        box = (Button)findViewById(R.id.getgroupname);
+        groupstring = (EditText)findViewById(R.id.mygroupname);
         groupList.setTextFilterEnabled(true);
 
 
@@ -90,31 +91,29 @@ public class SelectUsers extends AppCompatActivity{
             public void onClick(View view)
             {
                 DatabaseReference refer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users");
-                //DatabaseReference Mrefer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages");
-                for (int i = 0; i < listAdapter.getCount(); i++)
-                {
-                    MyUser planet = listAdapter.getItem(i);
-                    if (planet.isChecked()) {
-                        groupID += planet.getName();
-                        if (i < listAdapter.getCount() - 1)
-                            groupID += " ";
-                    }
-                }
-                groupID += UserDetails.username;
+                groupID = groupstring.getText().toString();
+
+                if(groupID == ""){
+                    groupstring.setError("Group Name cannot be empty");
+
+                } else{
+
                 for (int i = 0; i < listAdapter.getCount(); i++)
                 {
                     MyUser planet = listAdapter.getItem(i);
 
                     if (planet.isChecked()) {
                         Log.i(planet.getName(), "onClick: ");
-                        refer.child(planet.getName()).child("groups").child("groupid").setValue(groupID);
+                        refer.child(planet.getName()).child("groups").child(groupID).setValue(true);
                     }
                 }
-                refer.child(UserDetails.username).child("groups").child("groupid").setValue(groupID);
+                refer.child(UserDetails.username).child("groups").child(groupID).setValue(true);
 
                 UserDetails.CurrentGroup = groupID;
 
                 startActivity(new Intent(SelectUsers.this, GroupChat.class));
+                }
+                Log.i("Whats Happening",groupID);
             }
         });
     }
