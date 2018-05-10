@@ -2,6 +2,7 @@ package com.CS100MessagingApp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,6 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +40,8 @@ public class SelectUsers extends AppCompatActivity{
     Button box;
     int totalUsers = 0;
     ProgressDialog pd;
+
+    String groupID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +89,32 @@ public class SelectUsers extends AppCompatActivity{
             @Override
             public void onClick(View view)
             {
+                DatabaseReference refer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users");
+                //DatabaseReference Mrefer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages");
                 for (int i = 0; i < listAdapter.getCount(); i++)
                 {
                     MyUser planet = listAdapter.getItem(i);
-                    if (planet.isChecked())
-                    {
-                        Log.i(planet.getName(), "onClick: ");
+                    if (planet.isChecked()) {
+                        groupID += planet.getName();
+                        if (i < listAdapter.getCount() - 1)
+                            groupID += " ";
                     }
                 }
+                groupID += UserDetails.username;
+                for (int i = 0; i < listAdapter.getCount(); i++)
+                {
+                    MyUser planet = listAdapter.getItem(i);
 
+                    if (planet.isChecked()) {
+                        Log.i(planet.getName(), "onClick: ");
+                        refer.child(planet.getName()).child("groups").child("groupid").setValue(groupID);
+                    }
+                }
+                refer.child(UserDetails.username).child("groups").child("groupid").setValue(groupID);
+
+                UserDetails.CurrentGroup = groupID;
+
+                startActivity(new Intent(SelectUsers.this, GroupChat.class));
             }
         });
     }
