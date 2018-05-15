@@ -93,9 +93,8 @@ public class SelectUsers extends AppCompatActivity{
                 DatabaseReference refer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users");
                 groupID = groupstring.getText().toString();
 
-                if(groupID == ""){
+                if(groupID.equals("")){
                     groupstring.setError("Group Name cannot be empty");
-
                 } else{
 
                 for (int i = 0; i < listAdapter.getCount(); i++)
@@ -110,9 +109,11 @@ public class SelectUsers extends AppCompatActivity{
                 refer.child(UserDetails.username).child("groups").child(groupID).setValue(true);
 
                 UserDetails.CurrentGroup = groupID;
+                    Log.i("Whats Happening",groupID);
 
                 startActivity(new Intent(SelectUsers.this, GroupChat.class));
                 }
+
                 Log.i("Whats Happening",groupID);
             }
         });

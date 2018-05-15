@@ -36,7 +36,6 @@ public class UserProfilePage extends AppCompatActivity {
     TextView profilename;
     EditText profile_bio;
     String usersName = UserDetails.username;
-    String userBio = UserDetails.bio;
     private static int GALLERY_INTENT = 2;
     private StorageReference storage;
     private ProgressDialog pd;
