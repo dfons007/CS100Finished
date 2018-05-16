@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -13,27 +15,37 @@
 
     <Button
         android:id="@+id/getgroupname"
-        android:layout_width="144dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/groupList"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="29dp"
-        android:text="Start Group" />
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginTop="32dp"
+        android:text="Start Group"
+        app:layout_constraintBottom_toTopOf="@+id/groupList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mygroupname"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/mygroupname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/groupList"
-        android:layout_alignStart="@+id/groupList"
-        android:hint="Enter Grooup Name" />
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:hint="Enter Group Name"
+        app:layout_constraintEnd_toStartOf="@+id/getgroupname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/groupList"
         android:layout_width="match_parent"
-        android:layout_height="479dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="51dp" />
+        android:layout_height="0dp"
+        android:layout_marginBottom="67dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getgroupname" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

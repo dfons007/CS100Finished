@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
@@ -100,10 +101,20 @@ public class Chat extends AppCompatActivity {
                 }
 
                 if(userName.equals(UserDetails.username)){
-                        addMessageBox("You:\n" + message, 1,type);
+                    if(type.equals("image"))
+                    {
+                        addMessageBox(message,1,type);
+                    }else {
+                        addMessageBox("You:\n" + message, 1, type);
+                    }
                 }
                 else{
-                        addMessageBox(UserDetails.chatWith+":\n"+message,2,type);
+                    if(type.equals("image")) {
+                        addMessageBox(message, 2, type);
+                    }else{
+                        addMessageBox(UserDetails.chatWith + ":\n" + message, 2, type);
+                    }
+
                 }
             }
 
@@ -131,28 +142,61 @@ public class Chat extends AppCompatActivity {
 
     public void addMessageBox(String message, int type,String what){
         TextView textView = new TextView(Chat.this);
+        ImageView myImage = new ImageView(Chat.this);
         // What checks to see if the message is a text or image.
         if(what == "text") {
             textView.setText(message);
+            myImage.setVisibility(View.GONE);
         }else if(what == "image")
         {
-
+            textView.setVisibility(View.GONE);
+            myImage.setVisibility(View.VISIBLE);
         }
 
         LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp2.weight = 1.0f;
 
         if(type == 1) {
-            lp2.gravity = Gravity.LEFT;
-            textView.setBackgroundResource(R.drawable.bubble_out);
+            if(what.equals("text")) {
+                lp2.gravity = Gravity.LEFT;
+                textView.setBackgroundResource(R.drawable.bubble_out);
+                textView.setLayoutParams(lp2);
+                layout.addView(textView);
+                scrollView.fullScroll(View.FOCUS_DOWN);
+                myImage.setVisibility(View.GONE);
+
+            } else{
+                lp2.gravity = Gravity.LEFT;
+                Glide.with(this)
+                        .load(message)
+                        .into(myImage);
+                myImage.setLayoutParams(lp2);
+                layout.addView(myImage);
+                scrollView.fullScroll(View.FOCUS_DOWN);
+
+            }
         }
         else{
-            lp2.gravity = Gravity.RIGHT;
-            textView.setBackgroundResource(R.drawable.bubble_in);
+            if(what.equals("text")) {
+                lp2.gravity = Gravity.RIGHT;
+                textView.setBackgroundResource(R.drawable.bubble_in);
+                textView.setLayoutParams(lp2);
+                layout.addView(textView);
+                scrollView.fullScroll(View.FOCUS_DOWN);
+                myImage.setVisibility(View.GONE);
+
+            } else{
+                lp2.gravity = Gravity.RIGHT;
+                Glide.with(this)
+                        .load(message)
+                        .into(myImage);
+                myImage.setLayoutParams(lp2);
+                layout.addView(myImage);
+                scrollView.fullScroll(View.FOCUS_DOWN);
+
+            }
         }
-        textView.setLayoutParams(lp2);
-        layout.addView(textView);
-        scrollView.fullScroll(View.FOCUS_DOWN);
+
     }
 
     @Override
