@@ -144,10 +144,10 @@ public class Chat extends AppCompatActivity {
         TextView textView = new TextView(Chat.this);
         ImageView myImage = new ImageView(Chat.this);
         // What checks to see if the message is a text or image.
-        if(what == "text") {
+        if(what.equals("text")) {
             textView.setText(message);
             myImage.setVisibility(View.GONE);
-        }else if(what == "image")
+        }else if(what.equals("image"))
         {
             textView.setVisibility(View.GONE);
             myImage.setVisibility(View.VISIBLE);

@@ -62,7 +62,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/Create group"
+                    android:id="@+id/Creategroup"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
