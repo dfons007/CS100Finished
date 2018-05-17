@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="31dp"
         android:text="TextView"
-        tools:text="The best app EVA!!!"
         android:textColor="@drawable/ic_chat_black_24dp"/>
 
     <TabHost
