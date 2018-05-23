@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="4"
         android:padding="4dp"
+        android:scaleType="fitXY"
         android:src="@android:drawable/ic_menu_send"
         android:id="@+id/sendButton"/>
     <ImageView
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="4"
         android:padding ="4dp"
+        android:scaleType="fitXY"
         android:src="@android:drawable/ic_input_add"
         android:id="@+id/sendPicture"/>
 </LinearLayout>
