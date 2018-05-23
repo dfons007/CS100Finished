@@ -28,6 +28,7 @@
         <activity android:name=".ResetPassword" />
         <activity android:name=".SelectUsers"/>
         <activity android:name=".GroupList"/>
+        <activity android:name=".GroupRemove"/>
     </application>
 
 </manifest>
