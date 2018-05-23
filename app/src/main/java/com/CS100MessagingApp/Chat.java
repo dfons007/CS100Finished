@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
@@ -167,8 +168,11 @@ public class Chat extends AppCompatActivity {
 
             } else{
                 lp2.gravity = Gravity.LEFT;
+                myImage.setBackgroundResource(R.drawable.bubble_out);
                 Glide.with(this)
                         .load(message)
+                        .apply(new RequestOptions()
+                                .override(190,300).centerCrop())
                         .into(myImage);
                 myImage.setLayoutParams(lp2);
                 layout.addView(myImage);
@@ -187,8 +191,11 @@ public class Chat extends AppCompatActivity {
 
             } else{
                 lp2.gravity = Gravity.RIGHT;
+                myImage.setBackgroundResource(R.drawable.bubble_in);
                 Glide.with(this)
                         .load(message)
+                        .apply(new RequestOptions()
+                                .override(190,300).centerCrop())
                         .into(myImage);
                 myImage.setLayoutParams(lp2);
                 layout.addView(myImage);
