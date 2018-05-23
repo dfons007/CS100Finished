@@ -30,7 +30,7 @@
     <ListView
         android:id="@+id/usersList"
         android:layout_width="match_parent"
-        android:layout_height="392dp" />
+        android:layout_height="339dp" />
 
     <Button
         android:id="@+id/ChatTab"
@@ -39,12 +39,21 @@
         android:gravity="center"
         android:text="Groups"
         android:textSize="25dp" />
+
     <Button
         android:id="@+id/ProfileTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile"
         android:gravity="center"
+        android:text="Profile"
+        android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/RemoveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Remove"
         android:textSize="25dp"/>
 
 
