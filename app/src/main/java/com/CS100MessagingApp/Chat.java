@@ -216,7 +216,7 @@ public class Chat extends AppCompatActivity {
              final Map messageMap = new HashMap();
              final String push_id = String.valueOf(System.identityHashCode(messageMap));
              //Gets the Filepath for the Firebase Storage.
-            StorageReference filepath = imageRef.child("message_images").child(push_id+".jpg");
+            StorageReference filepath = imageRef.child("message_images").child(reference1.getKey()).child(push_id+".jpg");
             //Puts the the image into the Firebase Storage.
             filepath.putFile(sentImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>(){
                 @Override
