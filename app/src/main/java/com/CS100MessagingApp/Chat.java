@@ -213,7 +213,8 @@ public class Chat extends AppCompatActivity {
           // Get URI for image picked from gallery.
              android.net.Uri sentImageURI = data.getData();
              // Gets ID for what the image will be called.
-             final String push_id = reference1.getKey();
+             final Map messageMap = new HashMap();
+             final String push_id = String.valueOf(System.identityHashCode(messageMap));
              //Gets the Filepath for the Firebase Storage.
             StorageReference filepath = imageRef.child("message_images").child(push_id+".jpg");
             //Puts the the image into the Firebase Storage.
@@ -224,7 +225,6 @@ public class Chat extends AppCompatActivity {
                         //Gets a URL for the Image.
                         String download_url = task.getResult().getDownloadUrl().toString();
                         // Sends the Image as message into the Firebase RealTime Database.
-                        Map messageMap = new HashMap();
                         messageMap.put("message",download_url);
                         messageMap.put("user", UserDetails.username);
                         messageMap.put("type","image");
