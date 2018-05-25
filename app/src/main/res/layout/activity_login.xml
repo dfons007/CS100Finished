@@ -10,7 +10,8 @@
     android:fitsSystemWindows="true"
     tools:context="com.CS100MessagingApp.Login"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="#40E0D0">
 
     <TextView
         android:id="@+id/LoginTop"
