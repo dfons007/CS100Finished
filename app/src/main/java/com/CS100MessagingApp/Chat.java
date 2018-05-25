@@ -141,7 +141,12 @@ public class Chat extends AppCompatActivity {
         });
     }
 
+    /**
+     * @param type : type==1 means that the message is sent by you, and type==2 means that it is sent by your group chat members;
+     * @param what : the type of the message (image or text);
+     */
     public void addMessageBox(String message, int type,String what){
+
         TextView textView = new TextView(Chat.this);
         ImageView myImage = new ImageView(Chat.this);
         // What checks to see if the message is a text or image.
@@ -157,8 +162,10 @@ public class Chat extends AppCompatActivity {
         LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp2.weight = 1.0f;
 
+        // If the message is sent by you
         if(type == 1) {
             if(what.equals("text")) {
+                //The message type is text
                 lp2.gravity = Gravity.LEFT;
                 textView.setBackgroundResource(R.drawable.bubble_out);
                 textView.setLayoutParams(lp2);
@@ -167,6 +174,7 @@ public class Chat extends AppCompatActivity {
                 myImage.setVisibility(View.GONE);
 
             } else{
+                // The message type is Image
                 lp2.gravity = Gravity.LEFT;
                 myImage.setBackgroundResource(R.drawable.bubble_out);
                 Glide.with(this)
@@ -181,7 +189,9 @@ public class Chat extends AppCompatActivity {
             }
         }
         else{
+            //If the message is sent by other people
             if(what.equals("text")) {
+                //The message type is text
                 lp2.gravity = Gravity.RIGHT;
                 textView.setBackgroundResource(R.drawable.bubble_in);
                 textView.setLayoutParams(lp2);
@@ -190,6 +200,7 @@ public class Chat extends AppCompatActivity {
                 myImage.setVisibility(View.GONE);
 
             } else{
+                // The message type is Image
                 lp2.gravity = Gravity.RIGHT;
                 myImage.setBackgroundResource(R.drawable.bubble_in);
                 Glide.with(this)
@@ -213,8 +224,8 @@ public class Chat extends AppCompatActivity {
           // Get URI for image picked from gallery.
              android.net.Uri sentImageURI = data.getData();
              // Gets ID for what the image will be called.
-             final Map messageMap = new HashMap();
-             final String push_id = String.valueOf(System.identityHashCode(messageMap));
+            final Map messageMap = new HashMap();
+            final String push_id = String.valueOf(System.identityHashCode(messageMap));
              //Gets the Filepath for the Firebase Storage.
             StorageReference filepath = imageRef.child("message_images").child(reference1.getKey()).child(push_id+".jpg");
             //Puts the the image into the Firebase Storage.
