@@ -3,8 +3,8 @@ package com.CS100MessagingApp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -23,9 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
-    TextView registerUser, LoginText;
+    TextView LoginText;
     EditText username, password;
-    Button loginButton;
+    Button loginButton,registerUser;
     String user, pass;
 
     @Override
@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
 
         AlphaAnimation fadein = new AlphaAnimation(0.0f,1.0f);
 
-        registerUser = (TextView)findViewById(R.id.register);
+        registerUser = (Button)findViewById(R.id.register);
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         loginButton = (Button)findViewById(R.id.loginButton);
@@ -89,14 +89,17 @@ public class Login extends AppCompatActivity {
                                     JSONObject obj = new JSONObject(s);
 
                                     if(!obj.has(user)){
+                                        username.setError("Invalid Username");
                                         Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
                                     }
                                     else if(obj.getJSONObject(user).getString("password").equals(pass)){
                                         UserDetails.username = user;
                                         UserDetails.password = pass;
+                                        UserDetails.bio = obj.getJSONObject(user).getString("bio");
                                         startActivity(new Intent(Login.this, Users.class));
                                     }
                                     else {
+                                        password.setError("Incorrect Password");
                                         Toast.makeText(Login.this, "incorrect password", Toast.LENGTH_LONG).show();
                                     }
                                 } catch (JSONException e) {
