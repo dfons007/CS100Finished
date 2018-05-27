@@ -58,6 +58,7 @@ public class UserProfilePage extends AppCompatActivity {
         profilename =(TextView)findViewById(R.id.ProfilePicName);
         profile_bio = (EditText) findViewById(R.id.bio_textView);
         profilename.setText(usersName);
+        profile_bio.setText(UserDetails.bio);
         EditBioImage = (ImageView)findViewById(R.id.Edit_imageView);
 
         if (!UserDetails.bio.isEmpty()){
