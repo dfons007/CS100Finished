@@ -56,6 +56,7 @@
         android:layout_width="144dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/buttonstyle"
         android:text="Register"
         android:textSize="16dp" />
 
@@ -64,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="@drawable/buttonstyle"
         android:text="Back to login"
         android:textSize="16dp" />
 
