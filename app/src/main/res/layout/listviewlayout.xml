@@ -16,6 +16,15 @@
         app:srcCompat="@mipmap/ic_launcher_round"
         android:contentDescription="TODO" />
 
+    <ImageView
+        android:id="@+id/GreenDot"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="90dp"
+        android:src="@drawable/green_dot" />
+
     <TextView
         android:id="@+id/Name"
         android:layout_width="wrap_content"
