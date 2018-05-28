@@ -18,6 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,11 +29,13 @@ public class Login extends AppCompatActivity {
     EditText username, password;
     Button loginButton,registerUser;
     String user, pass;
+    DatabaseReference loginuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         AlphaAnimation fadein = new AlphaAnimation(0.0f,1.0f);
 
@@ -93,8 +97,10 @@ public class Login extends AppCompatActivity {
                                         Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
                                     }
                                     else if(obj.getJSONObject(user).getString("password").equals(pass)){
+                                        loginuser = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users"+user);
                                         UserDetails.username = user;
                                         UserDetails.password = pass;
+                                        loginuser.child("online").setValue("1");
                                         UserDetails.bio = obj.getJSONObject(user).getString("bio");
                                         startActivity(new Intent(Login.this, Users.class));
                                     }
