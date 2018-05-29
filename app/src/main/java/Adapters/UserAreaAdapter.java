@@ -1,34 +1,22 @@
 package Adapters;
 
-<<<<<<< HEAD:app/src/main/java/Adapters/UserAreaAdapter.java
-=======
-import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
->>>>>>> be1ebed2371a903924086a59ed4b6bc1b6f2439b:app/src/main/java/com/CS100MessagingApp/UserAreaAdapter.java
+
 import android.content.Context;
 import android.view.LayoutInflater;
-<<<<<<< HEAD:app/src/main/java/Adapters/UserAreaAdapter.java
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
-import com.CS100MessagingApp.R;
-
-import java.util.ArrayList;
-=======
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.CS100MessagingApp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static android.content.ContentValues.TAG;
->>>>>>> be1ebed2371a903924086a59ed4b6bc1b6f2439b:app/src/main/java/com/CS100MessagingApp/UserAreaAdapter.java
+import java.util.ArrayList;
 
 public class UserAreaAdapter extends ArrayAdapter<String> {
     DatabaseReference dispuser;

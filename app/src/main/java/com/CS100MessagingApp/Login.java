@@ -100,13 +100,9 @@ public class Login extends AppCompatActivity {
                                         loginuser = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users"+user);
                                         UserDetails.username = user;
                                         UserDetails.password = pass;
-<<<<<<< HEAD
-                                        startActivity(new Intent(Login.this, MainActivity.class));
-=======
                                         loginuser.child("online").setValue("1");
                                         UserDetails.bio = obj.getJSONObject(user).getString("bio");
-                                        startActivity(new Intent(Login.this, Users.class));
->>>>>>> be1ebed2371a903924086a59ed4b6bc1b6f2439b
+                                        startActivity(new Intent(Login.this, MainActivity.class));
                                     }
                                     else {
                                         password.setError("Incorrect Password");
