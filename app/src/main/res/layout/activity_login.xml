@@ -28,6 +28,7 @@
         android:id="@+id/username"
         android:inputType="text"
         android:maxLines="1"
+        android:gravity="center"
         android:hint="enter username"
         android:layout_marginBottom="10dp"/>
 
@@ -37,22 +38,28 @@
         android:id="@+id/password"
         android:inputType="textPassword"
         android:maxLines="1"
+        android:gravity="center"
         android:hint="enter password"
         android:layout_marginBottom="10dp"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
         android:id="@+id/loginButton"
-        android:layout_marginBottom="20dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
+        android:layout_width="121dp"
         android:layout_height="wrap_content"
-        android:text="Click here to register"
-        android:textSize="20dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:id="@+id/register"/>
+        android:background="@drawable/buttonstyle"
+        android:text="Login"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="121dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="Register"
+        android:background="@drawable/buttonstyle"
+        android:textSize="16dp" />
 
 </LinearLayout>

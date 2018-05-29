@@ -2,12 +2,11 @@ package com.CS100MessagingApp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -16,18 +15,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Register extends AppCompatActivity {
-    EditText username, password;
-    Button registerButton;
-    String user, pass;
-    TextView login;
+    EditText username, password, password_confirm;
+    Button registerButton,login;
+    String user, pass, pass_again;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +33,9 @@ public class Register extends AppCompatActivity {
 
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
+        password_confirm = (EditText)findViewById(R.id.password_again);
         registerButton = (Button)findViewById(R.id.registerButton);
-        login = (TextView)findViewById(R.id.login);
+        login = (Button) findViewById(R.id.login);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +51,7 @@ public class Register extends AppCompatActivity {
                 user = username.getText().toString();
                 //Gets password from text field in registration page
                 pass = password.getText().toString();
+                pass_again = password_confirm.getText().toString();
                 //Checks if username is empty
                 if(user.equals("")){
                     username.setError("can't be blank");
@@ -71,6 +70,9 @@ public class Register extends AppCompatActivity {
                 }
                 else if(pass.length()<5){
                     password.setError("Needs to be at least 5 characters long");
+                }
+                else if(!pass.equals(pass_again)){
+                    password_confirm.setError("Inconsistencies Password");
                 }
                 else {
                     //creates a progressdialog to denote that process is loading
@@ -102,6 +104,7 @@ public class Register extends AppCompatActivity {
                                         reference.child(user).child("bio").setValue("This is a bio.");
                                         Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_LONG).show();
                                     } else {
+                                        username.setError("Invalid Username");
                                         Toast.makeText(Register.this, "Username already exists", Toast.LENGTH_LONG).show();
                                     }
 

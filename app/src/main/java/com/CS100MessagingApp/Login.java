@@ -3,8 +3,8 @@ package com.CS100MessagingApp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -18,24 +18,28 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
-    TextView registerUser, LoginText;
+    TextView LoginText;
     EditText username, password;
-    Button loginButton;
+    Button loginButton,registerUser;
     String user, pass;
+    DatabaseReference loginuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         AlphaAnimation fadein = new AlphaAnimation(0.0f,1.0f);
 
-        registerUser = (TextView)findViewById(R.id.register);
+        registerUser = (Button)findViewById(R.id.register);
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         loginButton = (Button)findViewById(R.id.loginButton);
@@ -89,14 +93,23 @@ public class Login extends AppCompatActivity {
                                     JSONObject obj = new JSONObject(s);
 
                                     if(!obj.has(user)){
+                                        username.setError("Invalid Username");
                                         Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
                                     }
                                     else if(obj.getJSONObject(user).getString("password").equals(pass)){
+                                        loginuser = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users"+user);
                                         UserDetails.username = user;
                                         UserDetails.password = pass;
+<<<<<<< HEAD
                                         startActivity(new Intent(Login.this, MainActivity.class));
+=======
+                                        loginuser.child("online").setValue("1");
+                                        UserDetails.bio = obj.getJSONObject(user).getString("bio");
+                                        startActivity(new Intent(Login.this, Users.class));
+>>>>>>> be1ebed2371a903924086a59ed4b6bc1b6f2439b
                                     }
                                     else {
+                                        password.setError("Incorrect Password");
                                         Toast.makeText(Login.this, "incorrect password", Toast.LENGTH_LONG).show();
                                     }
                                 } catch (JSONException e) {
