@@ -1,12 +1,15 @@
-package com.CS100MessagingApp;
+package Adapters;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.content.Context;
-import java.util.ArrayList;
-import android.view.View;
-import android.view.LayoutInflater;
 import android.widget.TextView;
+
+import com.CS100MessagingApp.R;
+
+import java.util.ArrayList;
 
 public class UserAreaAdapter extends ArrayAdapter<String> {
 

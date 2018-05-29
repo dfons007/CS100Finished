@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.CS100MessagingApp.Chat">
+    tools:context="com.CS100MessagingApp.MainActivityAndFragments.Chat">
 
     <ScrollView
         android:layout_width="match_parent"

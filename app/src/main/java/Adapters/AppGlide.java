@@ -1,7 +1,8 @@
-package com.CS100MessagingApp;
+package Adapters;
 
 import android.content.Context;
 
+import com.CS100MessagingApp.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Registry;

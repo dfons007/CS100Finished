@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -57,7 +56,7 @@ public class GroupRemove extends AppCompatActivity{
         pd.show();
 
         // Find related groups in Firebase
-        String url = "https://messaging-app-cs100.firebaseio.com/users/"+UserDetails.username+"/groups.json";
+        String url = "https://messaging-app-cs100.firebaseio.com/users/"+ UserDetails.username+"/groups.json";
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
             @Override
             public void onResponse(String s) {
@@ -100,7 +99,7 @@ public class GroupRemove extends AppCompatActivity{
                     }
                     //set the currentgroup to NULL
                     UserDetails.CurrentGroup = "";
-                startActivity(new Intent(GroupRemove.this,Users.class));
+                startActivity(new Intent(GroupRemove.this,MainActivity.class));
             }
         });
     }

@@ -96,7 +96,7 @@ public class ResetPassword extends AppCompatActivity {
                                         DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users");
                                         reference.child(user).child("password").setValue(new_pass);
                                         Toast.makeText(ResetPassword.this, "Password change successful", Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(ResetPassword.this, Users.class));
+                                        startActivity(new Intent(ResetPassword.this, MainActivity.class));
                                     }
                                     else {
                                         Toast.makeText(ResetPassword.this, "Current password incorrect", Toast.LENGTH_LONG).show();
@@ -125,7 +125,7 @@ public class ResetPassword extends AppCompatActivity {
         cancel_button.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
-                                                 startActivity(new Intent(ResetPassword.this, UserProfilePage.class));
+                                                 startActivity(new Intent(ResetPassword.this, MainActivity.class));
                                              }
                                          }
         );

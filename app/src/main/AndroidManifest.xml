@@ -20,14 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"/>
         <activity android:name=".GroupChat" />
         <activity android:name=".Register" />
-        <activity android:name=".Users" />
         <activity android:name=".Chat" />
-        <activity android:name=".UserProfilePage"/>
         <activity android:name=".ResetPassword" />
-        <activity android:name=".SelectUsers"/>
-        <activity android:name=".GroupList"/>
         <activity android:name=".GroupRemove"/>
     </application>
 

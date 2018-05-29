@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item
+        android:title="Chat"
+        android:icon="@drawable/ic_chat_black_24dp"
+        />
+
+    <item
+        android:title="Group"
+        android:icon="@drawable/ic_group"
+        />
+
+    <item
+        android:title="Profile"
+        android:icon="@drawable/ic_face"
+        />
+
+    <item
+        android:title="Plus"
+        android:icon="@drawable/ic_group_add_black_24dp"
+        />
+</menu>
