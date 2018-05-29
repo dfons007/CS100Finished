@@ -69,6 +69,11 @@ public class GroupListFrag extends Fragment {
         pd.setMessage("Loading...");
         pd.show();
 
+        // If the array list is not empty clear
+        if(!al.isEmpty())
+        {
+            al.clear();
+        }
         String url = "https://messaging-app-cs100.firebaseio.com/users/"+ UserDetails.username+"/groups.json";
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){

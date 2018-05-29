@@ -71,6 +71,11 @@ public class SelectUsersFrag extends Fragment {
         pd = new ProgressDialog(getActivity());
         pd.setMessage("Loading...");
         pd.show();
+        // If the array list is not empty clear
+        if(!al.isEmpty())
+        {
+            al.clear();
+        }
 
         // Firebase GROUPID
         String url = "https://messaging-app-cs100.firebaseio.com/users.json";
@@ -87,6 +92,7 @@ public class SelectUsersFrag extends Fragment {
         });
         RequestQueue rQueue = Volley.newRequestQueue(getActivity());
         rQueue.add(request);
+
         groupList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View item,int position, long id){

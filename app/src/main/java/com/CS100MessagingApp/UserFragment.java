@@ -68,22 +68,28 @@ public class UserFragment extends Fragment {
         pd.setMessage("Loading...");
         pd.show();
 
+        //Unpopulate ArrayList
+        if(!al.isEmpty())
+        {
+            al.clear();
+        }
+
         String url = "https://messaging-app-cs100.firebaseio.com/users.json";
 
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
-            @Override
-            public void onResponse(String s) {
-                doOnSuccess(s);
-            }
-        },new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                System.out.println("" + volleyError);
-            }
-        });
+            StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String s) {
+                    doOnSuccess(s);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    System.out.println("" + volleyError);
+                }
+            });
 
-        RequestQueue rQueue = Volley.newRequestQueue(getActivity());
-        rQueue.add(request);
+            RequestQueue rQueue = Volley.newRequestQueue(getActivity());
+            rQueue.add(request);
 
         usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -134,4 +140,9 @@ public class UserFragment extends Fragment {
         pd.dismiss();
     }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        usersList.setAdapter(null);
+    }
 }
