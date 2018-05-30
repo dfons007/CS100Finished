@@ -97,7 +97,7 @@ public class Login extends AppCompatActivity {
                                         Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
                                     }
                                     else if(obj.getJSONObject(user).getString("password").equals(pass)){
-                                        loginuser = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users"+user);
+                                        loginuser = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users/"+user);
                                         UserDetails.username = user;
                                         UserDetails.password = pass;
                                         loginuser.child("online").setValue("1");

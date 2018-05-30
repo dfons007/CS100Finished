@@ -23,8 +23,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +54,7 @@ public class SelectUsersFrag extends Fragment {
     ProgressDialog pd;
     EditText groupstring;
     String groupID = "";
+    DatabaseReference groupidcheck;
 
     public SelectUsersFrag() {
         // Required empty public constructor
@@ -128,9 +132,25 @@ public class SelectUsersFrag extends Fragment {
                     refer.child(UserDetails.username).child("groups").child(groupID).setValue(true);
 
                     UserDetails.CurrentGroup = groupID;
-                    Log.i("Whats Happening",groupID);
+                    groupidcheck = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages");
+                    // Checking if Group ID is unique
+                    groupidcheck.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.i(groupID,"groupID:");
+                            if(dataSnapshot.child("/"+groupID).exists())
+                            {
+                                groupstring.setError("This Group already exists. Please choose a different name for your group.");
+                                return;
+                            }else {
+                                startActivity(new Intent(getActivity(), GroupChat.class));
+                            }
+                        }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                    startActivity(new Intent(getActivity(), GroupChat.class));
+                            }
+                            });
                 }
 
                 Log.i("Whats Happening",groupID);

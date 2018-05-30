@@ -140,9 +140,4 @@ public class UserFragment extends Fragment {
         pd.dismiss();
     }
 
-    @Override
-    public void onPause(){
-        super.onPause();
-        usersList.setAdapter(null);
-    }
 }

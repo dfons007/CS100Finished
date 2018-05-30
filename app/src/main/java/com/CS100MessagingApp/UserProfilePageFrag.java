@@ -49,6 +49,7 @@ public class UserProfilePageFrag extends Fragment {
     private static int GALLERY_INTENT = 2;
     private StorageReference storage;
     private ProgressDialog pd;
+    DatabaseReference useronlinestatus;
 
     public UserProfilePageFrag() {
         // Required empty public constructor
@@ -99,6 +100,8 @@ public class UserProfilePageFrag extends Fragment {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                useronlinestatus = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/users/"+usersName);
+                useronlinestatus.child("online").setValue("0");
                 Intent i = new Intent(getActivity(),Login.class);
                 startActivity(i);
             }

@@ -137,7 +137,7 @@ public class GroupRemove extends AppCompatActivity{
         pd.dismiss();
     }
 
-    /** Holds planet data. */
+    /** Holds user data. */
     private static class MyUser
     {
         private String name = "";
@@ -226,7 +226,7 @@ public class GroupRemove extends AppCompatActivity{
         }
     }
 
-    /** Custom adapter for displaying an array of Planet objects. */
+    /** Custom adapter for displaying an array of user objects. */
     private static class GroupArrayAdapter extends ArrayAdapter<MyUser>
     {
 
@@ -242,8 +242,8 @@ public class GroupRemove extends AppCompatActivity{
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
-            // Planet to display
-            MyUser planet = (MyUser) this.getItem(position);
+            // user to display
+            MyUser thisuser = (MyUser) this.getItem(position);
 
             // The child views in each row.
             CheckBox checkBox;
@@ -264,14 +264,14 @@ public class GroupRemove extends AppCompatActivity{
                 // call findViewById() later when we reuse the row.
                 convertView.setTag(new MyUserHolder(textView, checkBox));
 
-                // If CheckBox is toggled, update the planet it is tagged with.
+                // If CheckBox is toggled, update the user it is tagged with.
                 checkBox.setOnClickListener(new View.OnClickListener()
                 {
                     public void onClick(View v)
                     {
                         CheckBox cb = (CheckBox) v;
-                        MyUser planet = (MyUser) cb.getTag();
-                        planet.setChecked(cb.isChecked());
+                        MyUser thisuser = (MyUser) cb.getTag();
+                        thisuser.setChecked(cb.isChecked());
                     }
                 });
             }
@@ -286,13 +286,13 @@ public class GroupRemove extends AppCompatActivity{
                 textView = viewHolder.getTextView();
             }
 
-            // Tag the CheckBox with the Planet it is displaying, so that we can
-            // access the planet in onClick() when the CheckBox is toggled.
-            checkBox.setTag(planet);
+            // Tag the CheckBox with the data it is displaying, so that we can
+            // access the data in onClick() when the CheckBox is toggled.
+            checkBox.setTag(thisuser);
 
-            // Display planet data
-            checkBox.setChecked(planet.isChecked());
-            textView.setText(planet.getName());
+            // Display data
+            checkBox.setChecked(thisuser.isChecked());
+            textView.setText(thisuser.getName());
 
             return convertView;
         }
