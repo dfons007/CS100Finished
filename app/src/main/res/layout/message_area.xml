@@ -7,6 +7,10 @@
     android:orientation="horizontal"
     android:background="#40E0D0">
 
+    //These will be the required libraries to run the code that publishes the data.
+    org.eclipse.paho.android.service–1.0.2.jar
+    org.eclipse.paho.client.mqttv3-1.0.2.jar
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +21,58 @@
         android:id="@+id/messageArea"
         android:maxHeight="80dp"
         />
+
+
+    // This is meant to set up as part of the code above, like an attachement, that will hold the value
+    // of the persons typing status. It changes from a 0 to a 1 when they begin typing, and vis-versa.
+    messageEditText.addTextChangedListener(new TextWatcher() {
+
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+    public void afterTextChanged(Editable s) {
+    if (!TextUtils.isEmpty(s.toString()) && s.toString().trim().length() == 1) {
+    //Log.i(TAG, “typing started event…”);
+    typingStarted = true;
+    //send typing started status
+    } else if (s.toString().trim().length() == 0 && typingStarted) {
+    //Log.i(TAG, “typing stopped event…”);
+    typingStarted = false;
+    //send typing stopped status
+    }
+    }
+    });
+
+    // This will be the code that is reliant upon the libraries implemented above, this is in charge
+    // of publishing the data.
+    MqttClient client = new MqttClient(MQTT_URL, userId + “-” + new Date().getTime(), new MemoryPersistence());
+    MqttMessage message = new MqttMessage();
+    message.setRetained(false);
+    message.setPayload(typingStatus).getBytes());
+    message.setQos(0);
+    client.publish(“topic/” + userId, message);
+    client.subscribe(“topic/” + userB, 0);
+
+
+
+
+
+    // This is meant to be the status on the receivers end. If the other person is typing, the receiver will be notified, else nothing.
+
+    @Override
+    public void messageArrived(String s,final MqttMessage mqttMessage) throws Exception {
+    Log.i(TAG, “Received MQTT message: ” + new String(mqttMessage.getPayload()));
+    ….
+    if (!TextUtils.isEmpty(s) && s.startsWith(TYPINGTOPIC)) {
+    String typingResponse = mqttMessage.toString();
+    // Broadcast typing status to the current activity/fragment and display the typing label.
+    }
+    …
+    }
+
+
+
 
     <ImageView
         android:layout_width="match_parent"
