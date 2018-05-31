@@ -33,12 +33,13 @@ import java.util.Map;
 public class Chat extends AppCompatActivity {
     LinearLayout layout;
     RelativeLayout layout_2;
-    ImageView sendButton, sendPicture;
+    ImageView sendButton, sendPicture,sendVideo;
     EditText messageArea;
     ScrollView scrollView;
     DatabaseReference reference1, reference2;
     private StorageReference imageRef;
     private static int GALLERY_INTENT = 2;
+    private static int GALLERY_INTENT_VIDEO = 3;  // for video file
 
 
     @Override
@@ -53,6 +54,7 @@ public class Chat extends AppCompatActivity {
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollView = (ScrollView)findViewById(R.id.scrollView);
         sendPicture = (ImageView)findViewById(R.id.sendPicture);
+        sendVideo = (ImageView)findViewById(R.id.sendVideo);
         //Ref 1 = The User, Ref 2 = User that is being sent a message. imageRef is for sent images
         reference1 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
         reference2 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
@@ -82,6 +84,17 @@ public class Chat extends AppCompatActivity {
                 android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(intent,2);
+
+            }
+
+        });
+
+        sendVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_PICK);
+                intent.setType("video/*");
+                startActivityForResult(intent,3);  //3 for video file in onActivityResult function
 
             }
 
@@ -220,35 +233,66 @@ public class Chat extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
-          // Get URI for image picked from gallery.
-             android.net.Uri sentImageURI = data.getData();
-             // Gets ID for what the image will be called.
-            final Map messageMap = new HashMap();
-            final String push_id = String.valueOf(System.identityHashCode(messageMap));
-             //Gets the Filepath for the Firebase Storage.
-            StorageReference filepath = imageRef.child("message_images").child(reference1.getKey()).child(push_id+".jpg");
-            //Puts the the image into the Firebase Storage.
-            filepath.putFile(sentImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>(){
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task){
-                    if(task.isSuccessful()){
-                        //Gets a URL for the Image.
-                        String download_url = task.getResult().getDownloadUrl().toString();
-                        // Sends the Image as message into the Firebase RealTime Database.
-                        messageMap.put("message",download_url);
-                        messageMap.put("user", UserDetails.username);
-                        messageMap.put("type","image");
-                        reference1.push().setValue(messageMap);
-                        reference2.push().setValue(messageMap);
-                    }
+        if(resultCode == RESULT_OK){
+            // Get URI for image picked from gallery.
+            android.net.Uri sentFileURI = data.getData();
+            // Gets ID for what the image will be called.
+            final String push_id = reference1.getKey();
+            //if the image add button is called, send file to image storage
+            if(resultCode == GALLERY_INTENT) {
+
+                {
+                    //Gets the Filepath for the Firebase Storage.
+                    StorageReference filepath = imageRef.child("message_images").child(push_id + ".jpg");
+                    //Puts the the image into the Firebase Storage.
+                    filepath.putFile(sentFileURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                //Gets a URL for the Image.
+                                String download_url = task.getResult().getDownloadUrl().toString();
+                                // Sends the Image as message into the Firebase RealTime Database.
+                                Map messageMap = new HashMap();
+                                messageMap.put("message", download_url);
+                                messageMap.put("user", UserDetails.username);
+                                messageMap.put("type", "image");
+                                reference1.push().setValue(messageMap);
+                                reference2.push().setValue(messageMap);
+                            }
+                        }
+
+
+                    });
                 }
+            }
+            //if the video add button is called, send file to video storage
+            else if(requestCode == GALLERY_INTENT_VIDEO)
+            {
+                //Gets the Filepath for the Firebase Storage.
+                StorageReference filepath = imageRef.child("message_video").child(push_id + ".avi");
+                //Puts the the image into the Firebase Storage.
+                filepath.putFile(sentFileURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            //Gets a URL for the Image.
+                            String download_url = task.getResult().getDownloadUrl().toString();
+                            // Sends the Image as message into the Firebase RealTime Database.
+                            Map messageMap = new HashMap();
+                            messageMap.put("message", download_url);
+                            messageMap.put("user", UserDetails.username);
+                            messageMap.put("type", "video");
+                            reference1.push().setValue(messageMap);
+                            reference2.push().setValue(messageMap);
+                        }
+                    }
 
 
-            });
-
+                });
+            }
 
         }
+
 
     }
 }
