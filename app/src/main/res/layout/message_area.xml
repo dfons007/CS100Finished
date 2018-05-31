@@ -7,6 +7,14 @@
     android:orientation="horizontal"
     android:background="#40E0D0">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:padding ="4dp"
+        android:src="@android:drawable/ic_media_play"
+        android:id="@+id/sendVideo"/>
+
     //These will be the required libraries to run the code that publishes the data.
     org.eclipse.paho.android.service–1.0.2.jar
     org.eclipse.paho.client.mqttv3-1.0.2.jar
@@ -32,11 +40,11 @@
     public void onTextChanged(CharSequence s, int start, int before, int count) {
     }
     public void afterTextChanged(Editable s) {
-    if (!TextUtils.isEmpty(s.toString()) && s.toString().trim().length() == 1) {
+    if (!TextUtils.isEmpty(s.toString()) and s.toString().trim().length() == 1) {
     //Log.i(TAG, “typing started event…”);
     typingStarted = true;
     //send typing started status
-    } else if (s.toString().trim().length() == 0 && typingStarted) {
+    } else if (s.toString().trim().length() == 0 and typingStarted) {
     //Log.i(TAG, “typing stopped event…”);
     typingStarted = false;
     //send typing stopped status
@@ -64,7 +72,7 @@
     public void messageArrived(String s,final MqttMessage mqttMessage) throws Exception {
     Log.i(TAG, “Received MQTT message: ” + new String(mqttMessage.getPayload()));
     ….
-    if (!TextUtils.isEmpty(s) && s.startsWith(TYPINGTOPIC)) {
+    if (!TextUtils.isEmpty(s) and s.startsWith(TYPINGTOPIC)) {
     String typingResponse = mqttMessage.toString();
     // Broadcast typing status to the current activity/fragment and display the typing label.
     }
