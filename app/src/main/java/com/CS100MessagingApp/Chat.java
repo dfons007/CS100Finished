@@ -1,5 +1,7 @@
 package com.CS100MessagingApp;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -118,15 +121,19 @@ public class Chat extends AppCompatActivity {
                     if(type.equals("image"))
                     {
                         addMessageBox(message,1,type);
-                    }else {
+                    }else if(type.equals("text")){
                         addMessageBox("You:\n" + message, 1, type);
+                    }else if (type.equals("video")){
+                        addMessageBox(message, 1, type);
                     }
                 }
                 else{
                     if(type.equals("image")) {
                         addMessageBox(message, 2, type);
-                    }else{
+                    }else if(type.equals("text")){
                         addMessageBox(UserDetails.chatWith + ":\n" + message, 2, type);
+                    }else if (type.equals("video")){
+                        addMessageBox(message , 2, type);
                     }
 
                 }
@@ -156,18 +163,23 @@ public class Chat extends AppCompatActivity {
 
     /**
      * @param type : type==1 means that the message is sent by you, and type==2 means that it is sent by your group chat members;
-     * @param what : the type of the message (image or text);
+     * @param what : the type of the message (image, text or video);
      */
     public void addMessageBox(String message, int type,String what){
 
         TextView textView = new TextView(Chat.this);
         ImageView myImage = new ImageView(Chat.this);
+
+
         // What checks to see if the message is a text or image.
         if(what.equals("text")) {
             textView.setText(message);
             myImage.setVisibility(View.GONE);
         }else if(what.equals("image"))
         {
+            textView.setVisibility(View.GONE);
+            myImage.setVisibility(View.VISIBLE);
+        }else if (what.equals("video")){
             textView.setVisibility(View.GONE);
             myImage.setVisibility(View.VISIBLE);
         }
@@ -186,7 +198,7 @@ public class Chat extends AppCompatActivity {
                 scrollView.fullScroll(View.FOCUS_DOWN);
                 myImage.setVisibility(View.GONE);
 
-            } else{
+            } else if (what.equals("image")){
                 // The message type is Image
                 lp2.gravity = Gravity.LEFT;
                 myImage.setBackgroundResource(R.drawable.bubble_out);
@@ -199,6 +211,26 @@ public class Chat extends AppCompatActivity {
                 layout.addView(myImage);
                 scrollView.fullScroll(View.FOCUS_DOWN);
 
+            }else if (what.equals("video")){
+                final String tempURI = message;
+                lp2.gravity = Gravity.LEFT;
+                myImage.setBackgroundResource(R.drawable.bubble_out);
+                Glide.with(this)
+                        .load(R.drawable.unpressd)
+                        .apply(new RequestOptions()
+                        .override(190,190).centerCrop())
+                        .into(myImage);
+                myImage.setLayoutParams(lp2);
+                myImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Chat.this, VideoPlay.class);
+                        intent.putExtra("videoURI",tempURI);
+                        startActivity(intent);
+                    }
+                });
+                layout.addView(myImage);
+                scrollView.fullScroll(View.FOCUS_DOWN);
             }
         }
         else{
@@ -212,7 +244,7 @@ public class Chat extends AppCompatActivity {
                 scrollView.fullScroll(View.FOCUS_DOWN);
                 myImage.setVisibility(View.GONE);
 
-            } else{
+            } else if (what.equals("image")){
                 // The message type is Image
                 lp2.gravity = Gravity.RIGHT;
                 myImage.setBackgroundResource(R.drawable.bubble_in);
@@ -225,6 +257,27 @@ public class Chat extends AppCompatActivity {
                 layout.addView(myImage);
                 scrollView.fullScroll(View.FOCUS_DOWN);
 
+            }else if (what.equals("video")){
+                // The message type is Video
+                final String tempURI = message;
+                lp2.gravity = Gravity.RIGHT;
+                myImage.setBackgroundResource(R.drawable.bubble_in);
+                Glide.with(this)
+                        .load(R.drawable.unpressd)
+                        .apply(new RequestOptions()
+                                .override(190,190).centerCrop())
+                        .into(myImage);
+                myImage.setLayoutParams(lp2);
+                myImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Chat.this, VideoPlay.class);
+                        intent.putExtra("videoURI",tempURI);
+                        startActivity(intent);
+                    }
+                });
+                layout.addView(myImage);
+                scrollView.fullScroll(View.FOCUS_DOWN);
             }
         }
 
@@ -294,5 +347,12 @@ public class Chat extends AppCompatActivity {
         }
 
 
+    }
+
+    class MyMediaOnCompletionListener implements MediaPlayer.OnCompletionListener{
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            Toast.makeText(Chat.this, "Play Completed",  Toast.LENGTH_SHORT).show();
+        }
     }
 }
