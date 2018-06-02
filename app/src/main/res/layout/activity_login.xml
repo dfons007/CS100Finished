@@ -10,8 +10,8 @@
     android:fitsSystemWindows="true"
     tools:context="com.CS100MessagingApp.MainActivityAndFragments.Login"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="#40E0D0">
+    android:background="#CCFFCC"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/LoginTop"
@@ -20,6 +20,7 @@
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="Login"
+        android:textColor="#000000"
         android:textSize="30dp" />
 
     <EditText

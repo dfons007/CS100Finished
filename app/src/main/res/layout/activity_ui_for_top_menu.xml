@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.app.FragmentTabHost
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="#40E0D0"
         android:id="@+id/myTabHost"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#CCFFCC"
         android:paddingTop="25dp">
 
         <LinearLayout
@@ -16,6 +16,7 @@
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#CCFFCC"
                 android:orientation="horizontal" />
 
             <FrameLayout

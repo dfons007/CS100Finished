@@ -5,15 +5,9 @@
     android:gravity="bottom"
     android:fitsSystemWindows="true"
     android:orientation="horizontal"
-    android:background="#40E0D0">
+    android:background="#CCFFCC"
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="4"
-        android:padding ="4dp"
-        android:src="@android:drawable/ic_media_play"
-        android:id="@+id/sendVideo"/>
+    >
 
     //These will be the required libraries to run the code that publishes the data.
     org.eclipse.paho.android.service–1.0.2.jar
@@ -80,16 +74,23 @@
     }
 
 
-
-
     <ImageView
+        android:id="@+id/sendButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="4"
         android:padding="4dp"
         android:scaleType="fitXY"
-        android:src="@android:drawable/ic_menu_send"
-        android:id="@+id/sendButton"/>
+        android:src="@android:drawable/ic_menu_send" />
+
+    <ImageView
+        android:id="@+id/sendVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:padding="4dp"
+        android:src="@android:drawable/ic_media_play" />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -10,7 +10,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.CS100MessagingApp.Register"
     android:orientation="vertical"
-    android:background="#40E0D0"
+    android:background="#CCFFCC"
     android:gravity="center">
 
     <TextView

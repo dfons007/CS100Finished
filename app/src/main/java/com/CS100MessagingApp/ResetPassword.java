@@ -118,7 +118,6 @@ public class ResetPassword extends AppCompatActivity {
                     RequestQueue rQueue = Volley.newRequestQueue(ResetPassword.this);
                     rQueue.add(request);
                 }
-
             }
         });
 
