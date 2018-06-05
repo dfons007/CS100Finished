@@ -218,7 +218,7 @@ public class Chat extends AppCompatActivity {
                 Glide.with(this)
                         .load(R.drawable.unpressd)
                         .apply(new RequestOptions()
-                        .override(190,190).centerCrop())
+                                .override(190,190).centerCrop())
                         .into(myImage);
                 myImage.setLayoutParams(lp2);
                 myImage.setOnClickListener(new View.OnClickListener() {
@@ -290,13 +290,14 @@ public class Chat extends AppCompatActivity {
             // Get URI for image picked from gallery.
             android.net.Uri sentFileURI = data.getData();
             // Gets ID for what the image will be called.
-            final String push_id = reference1.getKey();
+            final Map messageMap = new HashMap();
+            final String push_id = String.valueOf(System.identityHashCode(messageMap));
             //if the image add button is called, send file to image storage
-            if(resultCode == GALLERY_INTENT) {
+            if(requestCode == GALLERY_INTENT) {
 
                 {
                     //Gets the Filepath for the Firebase Storage.
-                    StorageReference filepath = imageRef.child("message_images").child(push_id + ".jpg");
+                    StorageReference filepath = imageRef.child("message_images").child(reference1.getKey()).child(push_id+".jpg");
                     //Puts the the image into the Firebase Storage.
                     filepath.putFile(sentFileURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -305,7 +306,7 @@ public class Chat extends AppCompatActivity {
                                 //Gets a URL for the Image.
                                 String download_url = task.getResult().getDownloadUrl().toString();
                                 // Sends the Image as message into the Firebase RealTime Database.
-                                Map messageMap = new HashMap();
+
                                 messageMap.put("message", download_url);
                                 messageMap.put("user", UserDetails.username);
                                 messageMap.put("type", "image");
@@ -322,16 +323,15 @@ public class Chat extends AppCompatActivity {
             else if(requestCode == GALLERY_INTENT_VIDEO)
             {
                 //Gets the Filepath for the Firebase Storage.
-                StorageReference filepath = imageRef.child("message_video").child(push_id + ".avi");
-                //Puts the the image into the Firebase Storage.
+                StorageReference filepath = imageRef.child("message_video").child(reference1.getKey()).child(push_id+".avi");
+                //Puts the the video into the Firebase Storage.
                 filepath.putFile(sentFileURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
-                            //Gets a URL for the Image.
+                            //Gets a URL for the video.
                             String download_url = task.getResult().getDownloadUrl().toString();
-                            // Sends the Image as message into the Firebase RealTime Database.
-                            Map messageMap = new HashMap();
+                            // Sends the video as message into the Firebase RealTime Database.
                             messageMap.put("message", download_url);
                             messageMap.put("user", UserDetails.username);
                             messageMap.put("type", "video");
@@ -349,10 +349,4 @@ public class Chat extends AppCompatActivity {
 
     }
 
-    class MyMediaOnCompletionListener implements MediaPlayer.OnCompletionListener{
-        @Override
-        public void onCompletion(MediaPlayer mp) {
-            Toast.makeText(Chat.this, "Play Completed",  Toast.LENGTH_SHORT).show();
-        }
-    }
 }
