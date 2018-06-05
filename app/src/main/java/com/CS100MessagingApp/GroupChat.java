@@ -1,8 +1,10 @@
 package com.CS100MessagingApp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,12 +34,13 @@ import java.util.Map;
 public class GroupChat extends AppCompatActivity {
     LinearLayout layout;
     RelativeLayout layout_2;
-    ImageView sendButton,sendPicture;
+    ImageView sendButton,sendPicture,sendVideo;
     EditText messageArea;
     ScrollView scrollview;
     DatabaseReference groupRef;
     private StorageReference imageRef;
     private static int GALLERY_INTENT = 2;
+    private static int GALLERY_INTENT_VIDEO = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +50,10 @@ public class GroupChat extends AppCompatActivity {
         layout = (LinearLayout) findViewById(R.id.layout1);
         layout_2 = (RelativeLayout)findViewById(R.id.layout2);
         sendButton = (ImageView)findViewById(R.id.sendButton);
-        sendPicture = (ImageView)findViewById(R.id.sendPicture);
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollview = (ScrollView)findViewById(R.id.scrollView);
+        sendPicture = (ImageView)findViewById(R.id.sendPicture);
+        sendVideo = (ImageView)findViewById(R.id.sendVideo);
 
         groupRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://messaging-app-cs100.firebaseio.com/messages/" + UserDetails.CurrentGroup);
         imageRef = FirebaseStorage.getInstance().getReference();
@@ -61,8 +65,8 @@ public class GroupChat extends AppCompatActivity {
 
                 if(!messageText.equals("")){
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("user", UserDetails.username);
                     map.put("message", messageText);
+                    map.put("user", UserDetails.username);
                     map.put("type","text");
 
                     groupRef.push().setValue(map);
@@ -79,6 +83,18 @@ public class GroupChat extends AppCompatActivity {
                 startActivityForResult(intent,2);
 
             }
+        });
+
+        sendVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_PICK);
+                intent.setType("video/*");
+                startActivityForResult(intent,3);  //3 for video file in onActivityResult function
+                Log.v("SendVideoBTNListener","startActivityForResult"+";;;user:"+UserDetails.username);
+
+            }
+
         });
 
         groupRef.addChildEventListener(new ChildEventListener() {
@@ -100,16 +116,21 @@ public class GroupChat extends AppCompatActivity {
                     {
                         //In this case if you use "addMessageBox("You:\n"+message,1,type);" It will lead to bug.
                         addMessageBox(message,1,type);
-                    }else {
+                    }else if (type.equals("text")){
                         addMessageBox("You:\n" + message, 1,type);
+                    }else if (type.equals("video")){
+                        addMessageBox(message,1, type);
                     }
                 }
                 else{
                     if (type.equals("text")){
                         addMessageBox(userName+":\n"+message, 2, type);
-                    }else {
+                    }else if (type.equals("image")){
                         //The type of message is image
                         addMessageBox(userName+":\nI send an image.", 2, "text");
+                        addMessageBox(message, 2, type);
+                    }else if (type.equals("video")){
+                        addMessageBox(userName+":\nI send an video.", 2, "text");
                         addMessageBox(message, 2, type);
                     }
                 }
@@ -144,13 +165,15 @@ public class GroupChat extends AppCompatActivity {
     public void addMessageBox(String message, int type, String MessageType){
         TextView textView = new TextView(GroupChat.this);
         ImageView myImage = new ImageView(GroupChat.this);
-        //textView.setText(message);
 
         if(MessageType.equals("text")){
             textView.setText(message);
             myImage.setVisibility(View.GONE);
         }else if (MessageType.equals("image"))
         {
+            textView.setVisibility(View.GONE);
+            myImage.setVisibility(View.VISIBLE);
+        }else if (MessageType.equals("video")){
             textView.setVisibility(View.GONE);
             myImage.setVisibility(View.VISIBLE);
         }
@@ -168,7 +191,7 @@ public class GroupChat extends AppCompatActivity {
                 layout.addView(textView);
                 scrollview.fullScroll(View.FOCUS_DOWN);
                 myImage.setVisibility(View.GONE);
-            }else{
+            }else if (MessageType.equals("image")){
                 // The message type is Image
                 lp2.gravity = Gravity.LEFT;
                 myImage.setBackgroundResource(R.drawable.bubble_out);
@@ -178,6 +201,26 @@ public class GroupChat extends AppCompatActivity {
                                 .override(190,300).centerCrop())
                         .into(myImage);
                 myImage.setLayoutParams(lp2);
+                layout.addView(myImage);
+                scrollview.fullScroll(View.FOCUS_DOWN);
+            }else if (MessageType.equals("video")){
+                final String tempURI = message;
+                lp2.gravity = Gravity.LEFT;
+                myImage.setBackgroundResource(R.drawable.bubble_out);
+                Glide.with(this)
+                        .load(R.drawable.unpressd)
+                        .apply(new RequestOptions()
+                                .override(190,190).centerCrop())
+                        .into(myImage);
+                myImage.setLayoutParams(lp2);
+                myImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(GroupChat.this, VideoPlay.class);
+                        intent.putExtra("videoURI",tempURI);
+                        startActivity(intent);
+                    }
+                });
                 layout.addView(myImage);
                 scrollview.fullScroll(View.FOCUS_DOWN);
             }
@@ -193,7 +236,7 @@ public class GroupChat extends AppCompatActivity {
                 layout.addView(textView);
                 scrollview.fullScroll(View.FOCUS_DOWN);
                 myImage.setVisibility(View.GONE);
-            }else {
+            }else if (MessageType.equals("image")){
                 // The message type is Image
                 lp2.gravity = Gravity.RIGHT;
                 myImage.setBackgroundResource(R.drawable.bubble_in);
@@ -205,13 +248,35 @@ public class GroupChat extends AppCompatActivity {
                 myImage.setLayoutParams(lp2);
                 layout.addView(myImage);
                 scrollview.fullScroll(View.FOCUS_DOWN);
+            }else if (MessageType.equals("video")){
+                // The message type is Video
+                final String tempURI = message;
+                lp2.gravity = Gravity.RIGHT;
+                myImage.setBackgroundResource(R.drawable.bubble_in);
+                Glide.with(this)
+                        .load(R.drawable.unpressd)
+                        .apply(new RequestOptions()
+                                .override(190,190).centerCrop())
+                        .into(myImage);
+                myImage.setLayoutParams(lp2);
+                myImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(GroupChat.this, VideoPlay.class);
+                        intent.putExtra("videoURI",tempURI);
+                        startActivity(intent);
+                    }
+                });
+                layout.addView(myImage);
+                scrollview.fullScroll(View.FOCUS_DOWN);
             }
-           }
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data){
         super.onActivityResult(requestCode,resultCode,data);
+
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
             // Get URI for image picked from gallery.
             android.net.Uri sentImageURI = data.getData();
@@ -237,8 +302,33 @@ public class GroupChat extends AppCompatActivity {
 
 
             });
+        }
+        else if (requestCode == GALLERY_INTENT_VIDEO && resultCode == RESULT_OK){
+            // Get URI for video picked from gallery.
+            android.net.Uri sentVideoURI = data.getData();
+            // Gets ID for what the video will be called.
+            final Map messageMap = new HashMap();
+            final String push_id = String.valueOf(System.identityHashCode(messageMap));
+            //Gets the Filepath for the Firebase Storage.
+            StorageReference filepath = imageRef.child("message_video").child(groupRef.getKey()).child(push_id+".avi");
+            //Puts the the video into the Firebase Storage.
+            filepath.putFile(sentVideoURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>(){
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task){
+                    if(task.isSuccessful()){
+                        //Gets a URL for the Image.
+                        String download_url = task.getResult().getDownloadUrl().toString();
+                        // Sends the Image as message into the Firebase RealTime Database.
+                        messageMap.put("message",download_url);
+                        messageMap.put("user", UserDetails.username);
+                        messageMap.put("type","video");
+                        Log.v("Upload Video","download_url:"+download_url+";;;user:"+UserDetails.username);
+                        groupRef.push().setValue(messageMap);
+                    }
+                }
 
 
+            });
         }
 
     }
