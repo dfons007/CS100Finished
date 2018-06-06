@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity{
         // Access your Groups
         tabhost.setup(this,getSupportFragmentManager(),R.id.realtabcontent);
         tabhost.addTab(tabhost.newTabSpec("My Groups").setIndicator("My Groups"),GroupListFrag.class,null);
+        //Remove the group you do not want to be in
+        tabhost.setup(this,getSupportFragmentManager(),R.id.realtabcontent);
+        tabhost.addTab(tabhost.newTabSpec("Remove Groups").setIndicator("Remove Groups"),GroupRemove.class,null);
 
 
     }
