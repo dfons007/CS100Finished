@@ -27,6 +27,7 @@
         <activity android:name=".ResetPassword" />
         <activity android:name=".GroupRemove"/>
         <activity android:name=".VideoPlay"/>
+        <activity android:name=".CreateDateChat"/>
     </application>
 
 </manifest>
