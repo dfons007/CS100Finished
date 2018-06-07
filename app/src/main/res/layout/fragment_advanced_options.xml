@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CCFFCC"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="401dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#40E0D0"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button_dateChat"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/button_topicChat"
+                android:text="Limit   Time    Chat" />
+
+            <Button
+                android:id="@+id/button_topicChat"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="83dp"
+                android:text="Topic    Chat" />
+
+            <Button
+                android:id="@+id/button_reactionChat"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/button_dateChat"
+                android:text="Reaction    Chat"
+                />
+        </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>
