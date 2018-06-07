@@ -18,16 +18,17 @@ public class MainActivity extends AppCompatActivity{
         tabhost.addTab(tabhost.newTabSpec("Users").setIndicator("Users"), UserFragment.class,null);
         // Create a Group Chat
         tabhost.setup(this,getSupportFragmentManager(),R.id.realtabcontent);
-        tabhost.addTab(tabhost.newTabSpec("Create Group").setIndicator("Create Group"), SelectUsersFrag.class,null);
+        tabhost.addTab(tabhost.newTabSpec("Create Group").setIndicator("Add  Group"), SelectUsersFrag.class,null);
         // Visit your Profile Page
         tabhost.setup(this,getSupportFragmentManager(),R.id.realtabcontent);
-        tabhost.addTab(tabhost.newTabSpec("My Profile").setIndicator("My Profile"), UserProfilePageFrag.class,null);
+        tabhost.addTab(tabhost.newTabSpec("Profile").setIndicator("Myfile"), UserProfilePageFrag.class,null);
         // Access your Groups
         tabhost.setup(this,getSupportFragmentManager(),R.id.realtabcontent);
-        tabhost.addTab(tabhost.newTabSpec("My Groups").setIndicator("My Groups"),GroupListFrag.class,null);
-        //Remove the group you do not want to be in
+        tabhost.addTab(tabhost.newTabSpec("Group").setIndicator("Group"),GroupListFrag.class,null);
+
+        // Create a special chat
         tabhost.setup(this,getSupportFragmentManager(),R.id.realtabcontent);
-        tabhost.addTab(tabhost.newTabSpec("Remove Groups").setIndicator("Remove Groups"),GroupRemove.class,null);
+        tabhost.addTab(tabhost.newTabSpec("*").setIndicator("*"), AdvancedOptionsFrag.class,null);
 
 
     }
