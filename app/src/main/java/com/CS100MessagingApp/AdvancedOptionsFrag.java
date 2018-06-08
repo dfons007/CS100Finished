@@ -15,7 +15,7 @@ import com.google.firebase.storage.StorageReference;
 
 @SuppressWarnings("ResourceType")
 public class AdvancedOptionsFrag extends Fragment {
-    Button DateChat_Button, TopicChat_Button, ReactionChat_Button;
+    Button DateChat_Button, TopicChat_Button, ReactionChat_Button, RemoveGroup_Button;
     private StorageReference storage;
 
     //Required empty public constructor
@@ -33,7 +33,6 @@ public class AdvancedOptionsFrag extends Fragment {
         DateChat_Button = (Button)v.findViewById(R.id.button_dateChat);
         TopicChat_Button = (Button)v.findViewById(R.id.button_topicChat);
         ReactionChat_Button = (Button)v.findViewById(R.id.button_reactionChat);
-
 
         // Animation Start
         fadein.setDuration(1500);

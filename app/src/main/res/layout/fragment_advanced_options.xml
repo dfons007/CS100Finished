@@ -17,7 +17,7 @@
             android:layout_height="401dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="#40E0D0"
+            android:background="#CCFFCC"
             android:orientation="vertical">
 
             <Button
@@ -25,8 +25,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="73dp"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/button_topicChat"
-                android:text="Limit   Time    Chat" />
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="148dp"
+                android:background="@drawable/buttonstyle"
+                android:text="Limited   Time    Chat" />
 
             <Button
                 android:id="@+id/button_topicChat"
@@ -34,20 +36,21 @@
                 android:layout_height="73dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="83dp"
+                android:layout_marginTop="62dp"
+                android:background="@drawable/buttonstyle"
                 android:text="Topic    Chat" />
 
             <Button
                 android:id="@+id/button_reactionChat"
                 android:layout_width="match_parent"
                 android:layout_height="73dp"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/button_dateChat"
-                android:text="Reaction    Chat"
-                />
+                android:layout_marginBottom="90dp"
+                android:background="@drawable/buttonstyle"
+                android:text="Reaction    Chat" />
+
         </RelativeLayout>
-
-
 
 
     </RelativeLayout>

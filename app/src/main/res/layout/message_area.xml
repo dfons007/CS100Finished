@@ -6,7 +6,6 @@
     android:fitsSystemWindows="true"
     android:orientation="horizontal"
     android:background="#CCFFCC"
-
     >
 
     //These will be the required libraries to run the code that publishes the data.
